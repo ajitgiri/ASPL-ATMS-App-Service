@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "SystemExceptionEntityAppProfileEntity MongoDB Collection",
+  "title": "SystemExceptionEntityAppProfileEntity MongoDB Title",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Generated surrogate key."
+    },
+	"resolutionCode": {
+		  "description": "Unique identification code for the Exception Resolution Step",
+		  "type":"string"
+	  },
+	"title": {
+		  "description": "Title of Resolution code",
+		  "type":"string"
+	},
+	"description": {
+		  "description": "description",
+		  "type":"string"
+	  },
+	"resolutionStepDetails": {
+		"type": "array",
+		"additionalItems": true,
+		"uniqueItems": false,
+		"description": "Resolution step details",
+		"items":{
+			"type": "object",
+			"description": "Resolution step details",
+			"properties": {
+				"resolutionStepTitle": {
+					"description": "Resolution Step Title",
+					"type":"string"
+				},
+				"resolutionStepDescription": {
+					"description": "Resolution Step Description",
+					"type":"string"
+				}
+			}
+		}
+	},
+    "createdDate": {
+		"description": "Onboarded Component Exception date",
+		"type": "string",
+		"format": "date-time"
+		},
+	"createdUser": {
+		  "description": "Component Onboarded created User",
+		  "type":"string"
+	  },
+	"updatedUser": {
+		  "description": "Component Onboarded Updated User",
+		  "type":"string"
+	  },
+	"updatedDate": {
+		  "description": "Onboarded Component recent Exception updated date",
+		  "type": "string",
+		  "format": "date-time"
+	  },
+	"usedByApplications": {
+		  "description": "list of applications using this Resolution code",
+		  "$ref": "ApplicationDetails.json"
+	  },
+	"auditHistory": {
+		"description": "keep track of all the audit history.",
+		"$ref": "AuditHistoryDetails.json"
+	}
+  },
+  "required": [ "resolutionCode"]
+}

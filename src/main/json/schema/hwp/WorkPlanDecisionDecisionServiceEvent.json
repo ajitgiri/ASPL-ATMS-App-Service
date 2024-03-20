@@ -1,0 +1,302 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "This maintains Hazard Work plan Decision flow status",
+  "title": "Hazard Work plan decisions",
+  "type": "Object",
+  "additionalItems": true,
+  "additionalProperties": false,
+  "properties": {
+    "loanNumber": {
+      "type": "string",
+      "description": "The Hazard Work plan loanNumber"
+    },
+    "enterpriseProductRequestId": {
+      "type": "string",
+      "description": "Unique Identifier across enterprise EnterpriseProductRequestId - EPR"
+    },
+    "lastUpdatedBy": {
+      "type": "string",
+      "description": "Unique Identifier across enterprise EnterpriseProductRequestId - EPR"
+    },
+    "workPlanDecisionStatus": {
+      "type": "string",
+      "description": "It could be EXCEPTION / PASSED etc."
+    },
+    "dueDate": {
+      "type": "string",
+      "description": "Due date when work plan is expected to be decisioned or completed",
+      "format": "date-time"
+    },
+    "user": {
+      "$ref": "../sew/UserDetails.json"
+    },
+    "workPlanExecution": {
+      "type": "Object",
+      "description": "current work plan execution in which the Loan is Disposition for workplan. \n work plan may go into suspended/followup",
+      "properties": {
+        "sourceType": {
+          "type": "string",
+          "description": "type of source from where policy dat come from"
+        },
+        "hazardPolicyDataId": {
+          "type": "string",
+          "description": "type of source from where policy dat come from",
+          "pattern": "^[a-fA-F0-9]{24}$"
+        },
+        "workPlanExecutionStartTimestamp": {
+          "type": "string",
+          "description": "type of source from where policy dat come from",
+          "format": "date-time"
+        },
+        "workPlanExecutionDecisionTimestamp": {
+          "type": "string",
+          "description": "type of source from where policy dat come from",
+          "format": "date-time"
+        },
+        "workPlanExecutionDecisionCompleteTimestamp": {
+          "type": "string",
+          "description": "type of source from where policy dat come from",
+          "format": "date-time"
+        },
+        "currentWorkPlanDecisions": {
+          "type": "array",
+          "description": "Work plan disposition context",
+          "additionalItems": true,
+          "uniqueItems": false,
+          "items": {
+            "$ref": "#/definitions/workPlanDecision"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "workPlanExecutionStartTimestamp"
+      ]
+    },
+    "historicalWorkPlans": {
+      "type": "Object",
+      "description": "current work plan execution",
+      "properties": {
+        "enterpriseProductRequestId": {
+          "type": "string",
+          "description": "Unique Identifier"
+        },
+        "loanNumber": {
+          "type": "string",
+          "description": "Loan Number"
+        },
+        "dueDate": {
+          "type": "string",
+          "description": "Loan Number",
+          "format": "date-time"
+        },
+        "users": {
+          "$ref": "../sew/UserDetails.json"
+        },
+        "workPlanPastExecutions": {
+          "type": "array",
+          "description": "List of User assignments changes in executing the work plan for the subject loan",
+          "additionalItems": true,
+          "uniqueItems": false,
+          "items": {
+            "type": "Object",
+            "description": "",
+            "properties": {
+              "sourceType": {
+                "type": "string",
+                "description": "Type of source from where the policy dat is sourced from"
+              },
+              "hazardPolicyDataId": {
+                "type": "string",
+                "description": "Type of source from where the policy dat is sourced from",
+                "pattern": "^[a-fA-F0-9]{24}$"
+              },
+              "workPlanExecutionStartTimestamp": {
+                "type": "string",
+                "description": "type of source from where policy dat come from",
+                "format": "date-time"
+              },
+              "workPlanExecutionDecisionCompleteTimestamp": {
+                "type": "string",
+                "description": "type of source from where policy dat come from",
+                "format": "date-time"
+              },
+              "lastUpdatedBy": {
+                "type": "string",
+                "description": "type of source from where policy dat come from",
+                "format": "date-time"
+              },
+              "historicalWorkPlanDecisions": {
+                "type": "array",
+                "description": "List of User assignments changes in executing the work plan for the subject loan",
+                "additionalItems": true,
+                "uniqueItems": false,
+                "items": {
+                  "$ref": "#/definitions/workPlanDecision"
+                }
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "definitions": {
+    "validationDataPoint" : {
+      "type": "Object",
+      "description": "",
+      "properties" : {
+        "policyDataValue" : {
+          "type" : "array",
+          "description" : "Data from loan SOR",
+          "additionalItems": true,
+          "uniqueItems": false,
+          "items": {
+            "type": "object",
+            "description" : "dsc",
+            "additionalProperties" : false,
+            "properties": {
+              "fieldName" : {
+                "type": "string",
+                "description" : ""
+              },
+              "originalValue" : {
+                "type": "string",
+                "description" : ""
+              },
+              "overriddenDataValue": {
+                "type": "string",
+                "description" : ""
+              }
+            }
+          }
+        },
+        "loanDataValue": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "user": {
+      "$ref": "../sew/UserDetails.json"
+    },
+    "followupDetail": {
+      "type": "object",
+      "description" : "",
+      "properties": {
+        "addedDateTime": {
+          "type": ["string","null"],
+          "description": "",
+          "format" : "date-time"
+        },
+        "description": {
+          "type" : "string",
+          "description": ""
+        },
+        "userId" :{
+          "type" : "string",
+          "description" : ""
+        },
+        "followupDueDate": {
+          "type": ["string","null"],
+          "description": "",
+          "format" : "date-time"
+        },
+        "followupDaysCount": {
+          "type" : "integer",
+          "description": "Number of Days after which the followup need to be done."
+        }
+      },
+      "additionalProperties" : false,
+      "required" : ["addedDateTime","description","userId","followupDueDate"]
+    },
+    "validationDecision" : {
+      "type": "object",
+      "description" : "",
+      "properties" : {
+        "validationStatus": {
+          "type": "string",
+          "description" : ""
+        },
+        "dataDrivenDecision" : {
+          "type": "string",
+          "description" : ""
+        },
+        "userId": {
+          "type": "string",
+          "description" : ""
+        },
+        "comment" : {
+          "type": "string",
+          "description" : ""
+        },
+        "ruleExecutedTimeStamp": {
+          "type": "string",
+          "description" : "",
+          "format": "date-time"
+        },
+        "validationDataPoint": {
+          "$ref": "#/definitions/validationDataPoint"
+        }
+      },
+      "additionalProperties": false
+    },
+    "validationRulesEvent" : {
+      "type": "object",
+      "description" : "",
+      "properties": {
+        "validationRuleId": {
+          "type": "string",
+          "description" : ""
+        },
+        "followupDetails": {
+          "type": "array",
+          "description" : "",
+          "additionalItems": true,
+          "uniqueItems": false,
+          "items": {
+            "$ref" : "#/definitions/followupDetail"
+          }
+        },
+        "validationDecision" : {
+          "$ref" : "#/definitions/validationDecision"
+        }
+      },
+      "additionalProperties" : false,
+      "required" : ["validationRuleId","validationDecision"]
+    },
+    "workPlanDecision": {
+      "type": "object",
+      "description" : "",
+      "properties": {
+        "workPlanDecisionStatus" : {
+          "type": "string",
+          "description" : ""
+        },
+        "decisionTimeStamp": {
+          "type": "string",
+          "description" : "",
+          "format" : "date-time"
+        },
+        "decisionMadeBy" : {
+          "type": "string",
+          "description" : ""
+        },
+        "validationRulesEvents": {
+          "type": "array",
+          "description" : "",
+          "additionalItems": true,
+          "uniqueItems" : false,
+          "items": {
+            "$ref" : "#/definitions/validationRulesEvent"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": ["workPlanDecisionStatus"]
+    }
+  },
+  "required": ["decisionRuleId"]
+}
