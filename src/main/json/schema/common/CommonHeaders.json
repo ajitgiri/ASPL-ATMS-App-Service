@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Common Headers Details Embedded MongoDB Collection",
+  "title": "Common Headers Details",
+  "type": "object",
+    "properties": {
+      "AIPL-creationTimeStamp": {
+        "description": "Unique Identifier for each record",
+        "type":"string"
+      },
+      "AIPL-applicationId": {
+        "description": "Record Created by the User",
+        "type":"string"
+      },
+      "AIPL-interactionId": {
+        "description": "Record Created by the User",
+        "type": "date-time"
+      },
+      "AIPL-messageId": {
+        "description": "Record last Updated by the User",
+        "type":"string"
+      },
+      "AIPL-actorId": {
+        "description": "Record last Updated date",
+        "type": "date-time"
+      },
+      "AIPL-stubMode": {
+        "description": "Current record status",
+        "type":"string"
+      }
+  }
+}

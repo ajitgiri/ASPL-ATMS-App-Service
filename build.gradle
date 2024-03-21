@@ -1,15 +1,15 @@
-/*buildscript {
+buildscript {
 	dependencies {
 		classpath 'org.jsonschema2pojo:jsonschema2pojo-gradle-plugin:1.1.1'
 	}
-}*/
+}
 plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.2.2'
 	id 'io.spring.dependency-management' version '1.1.4'
 }
 
-//apply plugin: 'jsonschema2pojo'
+apply plugin: 'jsonschema2pojo'
 group = 'com.aspl.atms.service'
 version = '0.0.1-SNAPSHOT'
 
@@ -27,21 +27,21 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
+
 	/*implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
 	implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
 	*//*implementation 'com.fasterxml.jackson.core:jackson-databind'*//*
 	implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+	 */
 
-	implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
-	// Required if generating JSR-303 annotations
-	implementation 'javax.validation:validation-api:1.1.0.CR2'
-	implementation 'jakarta.validation:jakarta.validation-api:3.0.0'
+	implementation 'com.fasterxml.jackson.core:jackson-databind'
+	implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
 	// Required if generating Jackson 2 annotations
-	implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.1'
-	// Required if generating JodaTime data types
-	implementation 'joda-time:joda-time:2.2'
-	// https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api
-	implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.17.1'*/
+	//implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.1'
+	implementation 'jakarta.validation:jakarta.validation-api'
+	implementation 'javax.validation:validation-api:1.1.0.Final'
 
 }
 
@@ -50,11 +50,10 @@ tasks.named('test') {
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ JsonSchema2Pojo Task ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-/*
 jsonSchema2Pojo {
 	source = files("src/main/json/schema")
-	targetDirectory = file("${project.buildDir}/generated-sources/js2p")
-	targetPackage ="com.wellsfargo.dda.app.service.api.model"
+	targetDirectory =  layout.buildDirectory.set(new File("$projectDir/generated-sources/js2p"))
+	targetPackage ="com.aspl.crm.app.service.api.model"
 	includeJsr303Annotations = true
 	includeAdditionalProperties = false
 	dateType = "java.time.LocalDate"
@@ -67,4 +66,4 @@ jsonSchema2Pojo {
 	removeOldOutput = true
 	annotationStyle = 'jackson2'
 	outputEncoding  = 'UTF-8'
-}*/
+}

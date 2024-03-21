@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Country Details Embedded MongoDB Collection",
+  "title": "Country Details",
+  "extends": { "$ref": "../common/CommonModel.json" },
+  "type": "object",
+    "properties": {
+      "countryCode": {
+        "description": "Country Code",
+        "type":"string"
+      },
+      "countryName": {
+        "description": "Country Name",
+        "type":"string"
+      }
+  }
+}
